@@ -7,7 +7,17 @@ export default function Footer() {
 
       <div className='text-white lg:font-semibold lg:text-sm font-normal text-[10px] text-right lg:space-y-3'>
         <p>@ 2025 Personal Portfolio</p>
-        <p>Made by Ali Nasr</p>
+        <p>
+          Made with{' '}
+          <a 
+            href="https://www.facebook.com/profile.php?id=61579997297688" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="underline hover:text-blue-400 transition-colors"
+          >
+            TrueFolio
+          </a>
+        </p>
       </div>
     </div>
   )
