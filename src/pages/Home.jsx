@@ -84,8 +84,9 @@ export default function Home() {
                 whileHover={{ scale: 1.1, backgroundColor: "#000", color: "#fff" }}
                 whileTap={{ scale: 0.9 }}
                 aria-label={social.label}
+                title={social.label}
               >
-                <social.Icon className="w-4 h-4 lg:w-5 lg:h-5" />
+                <social.Icon className="w-4 h-4 lg:w-5 lg:h-5" aria-hidden="true" />
               </motion.a>
             ))}
           </motion.div>
@@ -97,7 +98,16 @@ export default function Home() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         >
-          <img className="h-full w-full" src="/assets/hero-vector.svg" alt="Hero Vector" width="600" height="400" />
+          <img 
+            className="h-full w-full" 
+            src="/assets/hero-vector.svg" 
+            alt="Hero Vector" 
+            width="600" 
+            height="400" 
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+          />
         </motion.div>
       </div>
     </div>

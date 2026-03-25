@@ -11,7 +11,7 @@ export default function About() {
         transition={{ type: "spring", stiffness: 80, damping: 10 }}
         viewport={{ once: true }}
       >
-        <img src="/assets/about-me.svg" alt="About Me Illustration" width="500" height="400" loading="lazy" />
+        <img src="/assets/about-me.svg" alt="About Me Illustration" width="500" height="400" loading="lazy" decoding="async" />
       </motion.div>
 
       <motion.div

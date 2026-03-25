@@ -4,8 +4,8 @@ import { BiLogoGmail } from 'react-icons/bi';
 import { BsGithub } from 'react-icons/bs';
 import { IoLogoLinkedin, IoLogoTwitter, IoLogoWhatsapp } from 'react-icons/io5';
 import { IoMdMail } from "react-icons/io";
-import { FaPhone } from "react-icons/fa6";
-import { supabase } from '../lib/supabase';
+import { IoLogoWhatsapp } from 'react-icons/io5';
+import { BiLogoGmail } from 'react-icons/bi';
 
 export default function Contact() {
   const ref = useRef(null);
@@ -35,6 +35,8 @@ export default function Contact() {
     };
 
     try {
+      // Dynamic import to reduce initial bundle size and defer Supabase loading
+      const { supabase } = await import('../lib/supabase');
       const { error } = await supabase
         .from('messages')
         .insert([data]);
@@ -115,8 +117,9 @@ export default function Contact() {
                     whileHover={{ scale: 1.1, backgroundColor: "#000", color: "#fff" }}
                     whileTap={{ scale: 0.9 }}
                     aria-label={social.label}
+                    title={social.label}
                   >
-                    <social.Icon className="w-4 h-4 lg:w-5 lg:h-5" />
+                    <social.Icon className="w-4 h-4 lg:w-5 lg:h-5" aria-hidden="true" />
                   </motion.a>
                 ))}
               </div>

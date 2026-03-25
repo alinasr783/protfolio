@@ -63,6 +63,8 @@ export default function Projects() {
                 width="500"
                 height="300"
                 loading="lazy"
+                decoding="async"
+                fetchpriority="low"
               />
             </div>
 
