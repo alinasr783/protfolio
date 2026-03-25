@@ -4,8 +4,6 @@ import { BiLogoGmail } from 'react-icons/bi';
 import { BsGithub } from 'react-icons/bs';
 import { IoLogoLinkedin, IoLogoTwitter, IoLogoWhatsapp } from 'react-icons/io5';
 import { IoMdMail } from "react-icons/io";
-import { IoLogoWhatsapp } from 'react-icons/io5';
-import { BiLogoGmail } from 'react-icons/bi';
 
 export default function Contact() {
   const ref = useRef(null);
