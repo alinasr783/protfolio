@@ -6,11 +6,7 @@ export default defineConfig({
   plugins: [
     react(),
   ],
-  css: {
-    transformer: 'lightningcss',
-  },
   build: {
-    cssMinify: 'lightningcss',
     cssCodeSplit: true,
     minify: 'terser',
     terserOptions: {

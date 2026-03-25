@@ -5,16 +5,34 @@ export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const cursorSize = useMotionValue(32);
+  const cursorOpacity = useMotionValue(0);
 
   const springConfig = { damping: 25, stiffness: 250 };
   const x = useSpring(cursorX, springConfig);
   const y = useSpring(cursorY, springConfig);
   const size = useSpring(cursorSize, springConfig);
+  const opacity = useSpring(cursorOpacity, springConfig);
 
   useEffect(() => {
+    const updatePosition = (clientX, clientY) => {
+      cursorX.set(clientX);
+      cursorY.set(clientY);
+      cursorOpacity.set(1);
+    };
+
     const handleMouseMove = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
+      updatePosition(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = (e) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        updatePosition(touch.clientX, touch.clientY);
+      }
+    };
+
+    const handleTouchEnd = () => {
+      cursorOpacity.set(0);
     };
 
     const handleMouseOverText = () => {
@@ -41,11 +59,17 @@ export default function CustomCursor() {
     };
 
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchstart", handleTouchMove, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd);
     document.addEventListener("mouseover", handleMouseOver);
     document.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchstart", handleTouchMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseout", handleMouseOut);
     };
@@ -59,6 +83,7 @@ export default function CustomCursor() {
         height: size,
         x: x,
         y: y,
+        opacity: opacity,
         translateX: "-50%",
         translateY: "-50%",
       }}
