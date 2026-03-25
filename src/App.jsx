@@ -54,20 +54,30 @@ export default function App() {
           <Navbar />
           
           <main>
-            <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
-              <Routes>
-                <Route path="/" element={
-                  <>
-                    <Home />
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Home />
+                  <Suspense fallback={null}>
                     <LazySection><Skills /></LazySection>
+                  </Suspense>
+                  <Suspense fallback={null}>
                     <LazySection><About /></LazySection>
+                  </Suspense>
+                  <Suspense fallback={null}>
                     <LazySection><Projects /></LazySection>
+                  </Suspense>
+                  <Suspense fallback={null}>
                     <LazySection><Contact /></LazySection>
-                  </>
-                } />
-                <Route path="/dashboard" element={<Dashboard />} />
-              </Routes>
-            </Suspense>
+                  </Suspense>
+                </>
+              } />
+              <Route path="/dashboard" element={
+                <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+                  <Dashboard />
+                </Suspense>
+              } />
+            </Routes>
           </main>
 
           <Footer />
