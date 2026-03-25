@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { BiLogoGmail } from 'react-icons/bi';
 import { BsGithub } from 'react-icons/bs';
 import { IoLogoLinkedin, IoLogoTwitter, IoLogoWhatsapp } from 'react-icons/io5';
@@ -52,7 +52,7 @@ export default function Contact() {
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -60,17 +60,17 @@ export default function Contact() {
       className='lg:my-16 lg:px-28 my-8 px-5'
       id='contact'
     >
-      <motion.h2
+      <m.h2
         initial={{ y: -50, opacity: 0 }}
         animate={isInView ? { y: 0, opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.8 }}
         className='text-2xl lg:text-4xl text-center'
       >
         Contact <span className='font-extrabold'>Me</span>
-      </motion.h2>
+      </m.h2>
 
       <div className='flex justify-between items-center mt-8 lg:mt-16 flex-col lg:flex-row'>
-        <motion.div
+        <m.div
           initial={{ x: -50, opacity: 0 }}
           animate={isInView ? { x: 0, opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8 }}
@@ -88,27 +88,27 @@ export default function Contact() {
               </p>
             )}
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0 }}
               transition={{ duration: 0.8 }}
               className='flex justify-between gap-3 lg:gap-5 flex-col lg:flex-row'
             >
-              <motion.button
+              <m.button
                 whileHover={{ scale: 1.05 }}
                 disabled={loading}
                 type='submit'
                 className='bg-black justify-center w-fit lg:w-auto lg:flex-1 hover:shadow-lg text-white px-3 py-2 rounded flex items-center gap-x-3 font-medium disabled:opacity-50'
               >
                 {loading ? 'Sending...' : 'Get In Touch'}
-              </motion.button>
+              </m.button>
 
               <div className='flex items-center gap-x-2 lg:gap-x-5'>
                 {[
                   { Icon: BiLogoGmail, href: "mailto:contact@alinasr.com", label: "Email Ali Nasr" },
                   { Icon: IoLogoWhatsapp, href: "https://wa.me/201149030170", label: "Contact Ali Nasr on WhatsApp" },
                 ].map((social, index) => (
-                  <motion.a
+                  <m.a
                     key={index}
                     href={social.href}
                     className="bg-white p-2 lg:p-3 rounded border-2 border-black"
@@ -118,14 +118,14 @@ export default function Contact() {
                     title={social.label}
                   >
                     <social.Icon className="w-4 h-4 lg:w-5 lg:h-5" aria-hidden="true" />
-                  </motion.a>
+                  </m.a>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           </form>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ x: 50, opacity: 0 }}
           animate={isInView ? { x: 0, opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8 }}
@@ -139,7 +139,7 @@ export default function Contact() {
           <p className='text-[#71717A] text-sm/6 lg:text-base mt-3 lg:mt-6'>I seek to push the limits of creativity to create high-engaging, user-friendly, and memorable interactive experiences.</p>
 
           <div className='font-semibold text-sm lg:text-xl flex flex-col mt-6 gap-2 lg:gap-4'>
-            <motion.a
+            <m.a
               whileHover={{ x: 5 }}
               className='flex items-center gap-2 group'
               href="mailto:contact@alinasr.com"
@@ -149,9 +149,9 @@ export default function Contact() {
                 <IoMdMail className="w-4 h-4 lg:w-5 lg:h-5" />
               </span>
               contact@alinasr.com
-            </motion.a>
+            </m.a>
 
-            <motion.a
+            <m.a
               whileHover={{ x: 5 }}
               className='flex items-center gap-2 group'
               href="https://wa.me/201149030170"
@@ -161,10 +161,10 @@ export default function Contact() {
                 <IoLogoWhatsapp className="w-3 h-3 lg:w-4 lg:h-4" />
               </span>
               +201149030170
-            </motion.a>
+            </m.a>
           </div>
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

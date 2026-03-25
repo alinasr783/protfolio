@@ -1,10 +1,10 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 export default function About() {
   return (
     <div className="px-5 lg:px-28 flex justify-between flex-col lg:flex-row my-10 lg:my-20" id="about">
-      <motion.div
+      <m.div
         className="lg:w-1/2"
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -12,9 +12,9 @@ export default function About() {
         viewport={{ once: true }}
       >
         <img src="/assets/about-me.svg" alt="About Me Illustration" width="500" height="400" loading="lazy" decoding="async" />
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className="lg:w-1/2"
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -49,7 +49,7 @@ export default function About() {
           If you’re looking for someone who understands both development and business, and can turn your idea into a fully functional product, I’d be happy to work with you.
         </p>
 
-      </motion.div>
+      </m.div>
     </div>
   );
 }

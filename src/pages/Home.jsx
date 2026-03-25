@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { IoLogoLinkedin, IoLogoTwitter, IoLogoWhatsapp } from "react-icons/io5";
 import { BiLogoGmail } from "react-icons/bi";
 import { BsGithub } from "react-icons/bs";
@@ -10,14 +10,14 @@ export default function Home() {
     <div className="mt-20" id="home">
       <div className="flex justify-between py-10 items-center px-5 lg:px-28 lg:flex-row flex-col-reverse">
 
-        <motion.div
+        <m.div
           className="lg:w-[45%]"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
         >
 
-          <motion.div
+          <m.div
             className="text-2xl lg:text-5xl flex flex-col mt-8 lg:mt-0 gap-2 lg:gap-5 text-nowrap"
             initial="hidden"
             animate="visible"
@@ -30,7 +30,7 @@ export default function Home() {
               },
             }}
           >
-            <motion.h2 variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+            <m.h2 variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
               Hello, <TypeAnimation
                 sequence={[
                   'I am Ali Nasr',
@@ -46,8 +46,8 @@ export default function Home() {
                 style={{ fontWeight:600 }}
                 repeat={Infinity}
               />
-            </motion.h2>
-            <motion.h2 variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
+            </m.h2>
+            <m.h2 variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0 } }}>
               <span className="font-extrabold">Fullstack</span>{" "}
               <span
                 className="text-white font-extrabold"
@@ -55,19 +55,19 @@ export default function Home() {
               >
                 Developer
               </span>
-            </motion.h2>
-          </motion.div>
+            </m.h2>
+          </m.div>
 
-          <motion.p
+          <m.p
             className="text-[#71717A] text-sm lg:text-base mt-5"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
           >
             Full Stack Software Engineer focused on building scalable web applications. Experienced in developing end-to-end solutions using modern technologies.
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             className="flex items-center gap-x-5 mt-10 lg:mt-14"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function Home() {
               { Icon: BiLogoGmail, href: "mailto:contact@alinasr.com", label: "Email Ali Nasr" },
               { Icon: IoLogoWhatsapp, href: "https://wa.me/201149030170", label: "Contact Ali Nasr on WhatsApp" },
             ].map((social, index) => (
-              <motion.a
+              <m.a
                 key={index}
                 href={social.href}
                 className="bg-white p-2 lg:p-3 rounded border-2 border-black"
@@ -87,12 +87,12 @@ export default function Home() {
                 title={social.label}
               >
                 <social.Icon className="w-4 h-4 lg:w-5 lg:h-5" aria-hidden="true" />
-              </motion.a>
+              </m.a>
             ))}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className="lg:w-[55%] w-full"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -108,7 +108,7 @@ export default function Home() {
             loading="eager"
             decoding="async"
           />
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { TbDownload } from "react-icons/tb";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import resumeFile from "../assets/myresume.pdf";
@@ -46,7 +46,7 @@ export default function Navbar() {
   };
 
   return (
-    <motion.nav
+    <m.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -59,7 +59,7 @@ export default function Navbar() {
           aria-label="Scroll to home"
           className="cursor-pointer"
         >
-          <motion.img
+          <m.img
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="h-9"
@@ -72,7 +72,7 @@ export default function Navbar() {
 
         <ul className="hidden lg:flex items-center gap-x-7 font-semibold">
           {["about", "skills", "projects", "contact"].map((section) => (
-            <motion.li
+            <m.li
               key={section}
               className="group"
               whileHover={{ scale: 1.1 }}
@@ -80,15 +80,15 @@ export default function Navbar() {
               <button onClick={() => scrollToSection(section)} aria-label={`Scroll to ${section}`}>
                 {section.charAt(0).toUpperCase() + section.slice(1)}
               </button>
-              <motion.span
+              <m.span
                 className="w-0 transition-all duration-300 group-hover:w-full h-[2px] bg-black flex"
                 layout
-              ></motion.span>
-            </motion.li>
+              ></m.span>
+            </m.li>
           ))}
         </ul>
 
-        <motion.a
+        <m.a
           href={resumeFile}
           download="Ali_Nasr_Resume.pdf"
           className="hidden relative lg:inline-block px-4 py-2 font-medium group"
@@ -99,22 +99,22 @@ export default function Navbar() {
           <span className="relative text-black group-hover:text-white flex items-center gap-x-3">
             Resume <TbDownload size={16} />
           </span>
-        </motion.a>
+        </m.a>
 
-        <motion.button
+        <m.button
           className="lg:hidden text-2xl"
           onClick={() => setIsOpen(!isOpen)}
           whileHover={{ scale: 1.2 }}
           aria-label={isOpen ? "Close Menu" : "Open Menu"}
         >
           {isOpen ? <HiX /> : <HiOutlineMenu />}
-        </motion.button>
+        </m.button>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ y: "-100%" }}
             animate={{ y: 0 }}
             exit={{ y: "-100%" }}
@@ -130,7 +130,7 @@ export default function Navbar() {
             </button>
             <ul className="flex flex-col items-start ml-16 mt-28 h-full gap-y-6 font-semibold">
               {["about", "skills", "projects", "contact"].map((section) => (
-                <motion.li
+                <m.li
                   key={section}
                   className="border-b"
                   whileHover={{ scale: 1.1 }}
@@ -138,9 +138,9 @@ export default function Navbar() {
                   <button onClick={() => scrollToSection(section)} aria-label={`Scroll to ${section}`}>
                     {section.charAt(0).toUpperCase() + section.slice(1)}
                   </button>
-                </motion.li>
+                </m.li>
               ))}
-              <motion.a
+              <m.a
                 href={resumeFile}
                 download="Ali_Nasr_Resume.pdf"
                 className="relative inline-block px-4 py-2 font-semibold group"
@@ -152,11 +152,11 @@ export default function Navbar() {
                 <span className="relative text-black group-hover:text-white flex items-center gap-x-3">
                   Resume <TbDownload size={16} />
                 </span>
-              </motion.a>
+              </m.a>
             </ul>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </m.nav>
   );
 }

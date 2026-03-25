@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import CustomCursor from './utils/CursorAnimation'
+import { LazyMotion, domMax } from 'framer-motion'
 
 // Lazy load components for performance
 const Skills = lazy(() => import('./components/Skills'))
@@ -46,30 +47,32 @@ const LazySection = ({ children }) => {
 
 export default function App() {
   return (
-    <Router>
-      <div className='font-sora scroll-smooth overflow-x-hidden'>
-        <CustomCursor/>
-        <Navbar />
-        
-        <main>
-          <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
-            <Routes>
-              <Route path="/" element={
-                <>
-                  <Home />
-                  <LazySection><Skills /></LazySection>
-                  <LazySection><About /></LazySection>
-                  <LazySection><Projects /></LazySection>
-                  <LazySection><Contact /></LazySection>
-                </>
-              } />
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Routes>
-          </Suspense>
-        </main>
+    <LazyMotion features={domMax}>
+      <Router>
+        <div className='font-sora scroll-smooth overflow-x-hidden'>
+          <CustomCursor/>
+          <Navbar />
+          
+          <main>
+            <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
+              <Routes>
+                <Route path="/" element={
+                  <>
+                    <Home />
+                    <LazySection><Skills /></LazySection>
+                    <LazySection><About /></LazySection>
+                    <LazySection><Projects /></LazySection>
+                    <LazySection><Contact /></LazySection>
+                  </>
+                } />
+                <Route path="/dashboard" element={<Dashboard />} />
+              </Routes>
+            </Suspense>
+          </main>
 
-        <Footer />
-      </div>
-    </Router>
+          <Footer />
+        </div>
+      </Router>
+    </LazyMotion>
   )
 }

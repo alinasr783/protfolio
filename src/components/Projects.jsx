@@ -1,6 +1,6 @@
 import React from 'react';
 import { TbExternalLink } from "react-icons/tb";
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 import tabibiImg from "../assets/projects/tabibi.png";
 import taapostImg from "../assets/projects/taapost.png";
@@ -47,7 +47,7 @@ export default function Projects() {
 
       <div className="lg:mt-16 mt-8 lg:space-y-16 space-y-8 lg:pb-6 pb-3">
         {projects.map((project, index) => (
-          <motion.div
+          <m.div
             key={project.id}
             className={`flex justify-between items-center flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"}`}
             initial={{ opacity: 0, y: 50 }}
@@ -81,7 +81,7 @@ export default function Projects() {
                 <TbExternalLink size={23} />
               </a>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </div>

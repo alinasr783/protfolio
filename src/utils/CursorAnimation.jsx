@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { m, useSpring, useMotionValue } from "framer-motion";
 
 export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
@@ -52,7 +52,7 @@ export default function CustomCursor() {
   }, []);
 
   return (
-    <motion.div
+    <m.div
       className="fixed bg-white rounded-full pointer-events-none mix-blend-difference z-50 top-0 left-0"
       style={{
         width: size,
