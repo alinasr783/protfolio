@@ -105,8 +105,8 @@ export default function Contact() {
 
               <div className='flex items-center gap-x-2 lg:gap-x-5'>
                 {[
-                  { Icon: BiLogoGmail, href: "mailto:contact@alinasr.com" },
-                  { Icon: IoLogoWhatsapp, href: "https://wa.me/201149030170" },
+                  { Icon: BiLogoGmail, href: "mailto:contact@alinasr.com", label: "Email Ali Nasr" },
+                  { Icon: IoLogoWhatsapp, href: "https://wa.me/201149030170", label: "Contact Ali Nasr on WhatsApp" },
                 ].map((social, index) => (
                   <motion.a
                     key={index}
@@ -114,6 +114,7 @@ export default function Contact() {
                     className="bg-white p-2 lg:p-3 rounded border-2 border-black"
                     whileHover={{ scale: 1.1, backgroundColor: "#000", color: "#fff" }}
                     whileTap={{ scale: 0.9 }}
+                    aria-label={social.label}
                   >
                     <social.Icon className="w-4 h-4 lg:w-5 lg:h-5" />
                   </motion.a>
@@ -141,6 +142,7 @@ export default function Contact() {
               whileHover={{ x: 5 }}
               className='flex items-center gap-2 group'
               href="mailto:contact@alinasr.com"
+              aria-label="Email Ali Nasr"
             >
               <span className='border-2 transition-all border-transparent group-hover:border-black rounded-full p-1'>
                 <IoMdMail className="w-4 h-4 lg:w-5 lg:h-5" />
@@ -152,6 +154,7 @@ export default function Contact() {
               whileHover={{ x: 5 }}
               className='flex items-center gap-2 group'
               href="https://wa.me/201149030170"
+              aria-label="Contact Ali Nasr on WhatsApp"
             >
               <span className='border-2 transition-all border-transparent group-hover:border-black rounded-full p-[5px]'>
                 <IoLogoWhatsapp className="w-3 h-3 lg:w-4 lg:h-4" />

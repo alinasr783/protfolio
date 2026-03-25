@@ -54,16 +54,21 @@ export default function Navbar() {
         }`}
     >
       <div className="container mx-auto flex justify-between items-center">
-        <motion.img
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+        <button
           onClick={() => scrollToSection("home")}
-          className="h-9 cursor-pointer"
-          src="/assets/logo.svg"
-          alt="Ali Nasr Logo"
-          width="120"
-          height="36"
-        />
+          aria-label="Scroll to home"
+          className="cursor-pointer"
+        >
+          <motion.img
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="h-9"
+            src="/assets/logo.svg"
+            alt="Ali Nasr Logo"
+            width="120"
+            height="36"
+          />
+        </button>
 
         <ul className="hidden lg:flex items-center gap-x-7 font-semibold">
           {["about", "skills", "projects", "contact"].map((section) => (
@@ -119,6 +124,7 @@ export default function Navbar() {
             <button
               className="absolute top-5 right-5 text-2xl"
               onClick={() => setIsOpen(false)}
+              aria-label="Close Mobile Menu"
             >
               <HiX />
             </button>
@@ -129,7 +135,7 @@ export default function Navbar() {
                   className="border-b"
                   whileHover={{ scale: 1.1 }}
                 >
-                  <button onClick={() => scrollToSection(section)}>
+                  <button onClick={() => scrollToSection(section)} aria-label={`Scroll to ${section}`}>
                     {section.charAt(0).toUpperCase() + section.slice(1)}
                   </button>
                 </motion.li>
@@ -139,6 +145,7 @@ export default function Navbar() {
                 download="Ali_Nasr_Resume.pdf"
                 className="relative inline-block px-4 py-2 font-semibold group"
                 whileHover={{ scale: 1.1 }}
+                aria-label="Download Ali Nasr's Resume"
               >
                 <span className="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
                 <span className="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-black"></span>

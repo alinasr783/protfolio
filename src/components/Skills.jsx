@@ -66,8 +66,11 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: skill.id * 0.1 }}
               viewport={{ once: true }}
+              aria-label={`Skill: ${skill.name}`}
             >
-              {skill.icon}
+              <div aria-hidden="true">
+                {skill.icon}
+              </div>
               <p>{skill.name}</p>
             </motion.div>
           ))}

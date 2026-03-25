@@ -1,48 +1,67 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect } from "react";
+import { motion, useSpring, useMotionValue } from "framer-motion";
 
 export default function CustomCursor() {
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [cursorSize, setCursorSize] = useState(32); // Default size
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  const cursorSize = useMotionValue(32);
+
+  const springConfig = { damping: 25, stiffness: 250 };
+  const x = useSpring(cursorX, springConfig);
+  const y = useSpring(cursorY, springConfig);
+  const size = useSpring(cursorSize, springConfig);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const handleMouseOverText = () => {
-      setCursorSize(80); // Increase cursor size when hovering over text
+      cursorSize.set(80);
     };
 
     const handleMouseLeaveText = () => {
-      setCursorSize(32); // Reset cursor size when leaving text
+      cursorSize.set(32);
     };
 
-    // Select all text elements
-    const textElements = document.querySelectorAll("p, h1, h2, h3, h4, h5, h6");
+    // Use event delegation on the document for better performance
+    const handleMouseOver = (e) => {
+      const target = e.target;
+      if (target.matches("p, h1, h2, h3, h4, h5, h6, span, a, button")) {
+        handleMouseOverText();
+      }
+    };
 
-    textElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseOverText);
-      el.addEventListener("mouseleave", handleMouseLeaveText);
-    });
+    const handleMouseOut = (e) => {
+      const target = e.target;
+      if (target.matches("p, h1, h2, h3, h4, h5, h6, span, a, button")) {
+        handleMouseLeaveText();
+      }
+    };
 
     window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
     return () => {
-      textElements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseOverText);
-        el.removeEventListener("mouseleave", handleMouseLeaveText);
-      });
       window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 
   return (
     <motion.div
-      className="fixed bg-white rounded-full pointer-events-none mix-blend-difference z-50"
-      style={{ width: cursorSize, height: cursorSize }}
-      animate={{ x: cursorPosition.x - cursorSize / 2, y: cursorPosition.y - cursorSize / 2 }}
-      transition={{ type: "spring", stiffness: 200, damping: 20 }}
+      className="fixed bg-white rounded-full pointer-events-none mix-blend-difference z-50 top-0 left-0"
+      style={{
+        width: size,
+        height: size,
+        x: x,
+        y: y,
+        translateX: "-50%",
+        translateY: "-50%",
+      }}
     />
   );
 }
