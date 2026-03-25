@@ -31,9 +31,8 @@ export default function CustomCursor() {
       }
     };
 
-    const handleTouchEnd = () => {
-      cursorOpacity.set(0);
-    };
+    // Initialize visibility
+    cursorOpacity.set(1);
 
     const handleMouseOverText = () => {
       cursorSize.set(80);
@@ -61,7 +60,6 @@ export default function CustomCursor() {
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("touchstart", handleTouchMove, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd);
     document.addEventListener("mouseover", handleMouseOver);
     document.addEventListener("mouseout", handleMouseOut);
 
@@ -69,7 +67,6 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("touchstart", handleTouchMove);
       window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
       document.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseout", handleMouseOut);
     };
