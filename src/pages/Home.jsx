@@ -35,11 +35,11 @@ export default function Home() {
                 sequence={[
                   'I am Ali Nasr',
                   1000,
-                  'I am a Full Stack Developer',
+                  'I am a Full-Stack Dev',
                   1000,
                   'I am a Frontend Expert',
                   1000,
-                  'I am a Web Development',
+                  'I am a Web Dev',
                   1000,
                 ]}
                 speed={10}

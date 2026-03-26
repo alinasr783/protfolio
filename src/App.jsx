@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import CustomCursor from './utils/CursorAnimation'
 import { LazyMotion, domMax } from 'framer-motion'
+import { trackVisit, trackAction } from './utils/tracker'
 
 // Lazy load components for performance
 const Skills = lazy(() => import('./components/Skills'))
@@ -14,7 +15,7 @@ const Contact = lazy(() => import('./components/Contact'))
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'))
 
 // Helper component to only render sections when they are close to being visible
-const LazySection = ({ children }) => {
+const LazySection = ({ children, sectionName }) => {
   const [inView, setInView] = useState(false);
   const ref = useRef();
 
@@ -23,6 +24,9 @@ const LazySection = ({ children }) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
+          if (sectionName) {
+            trackAction('section_view', { section: sectionName });
+          }
           observer.disconnect();
         }
       },
@@ -36,7 +40,7 @@ const LazySection = ({ children }) => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [sectionName]);
 
   return (
     <div ref={ref} style={{ minHeight: '200px' }}>
@@ -46,6 +50,10 @@ const LazySection = ({ children }) => {
 };
 
 export default function App() {
+  useEffect(() => {
+    trackVisit();
+  }, []);
+
   return (
     <LazyMotion features={domMax}>
       <Router>
@@ -59,16 +67,16 @@ export default function App() {
                 <>
                   <Home />
                   <Suspense fallback={null}>
-                    <LazySection><Skills /></LazySection>
+                    <LazySection sectionName="Skills"><Skills /></LazySection>
                   </Suspense>
                   <Suspense fallback={null}>
-                    <LazySection><About /></LazySection>
+                    <LazySection sectionName="About"><About /></LazySection>
                   </Suspense>
                   <Suspense fallback={null}>
-                    <LazySection><Projects /></LazySection>
+                    <LazySection sectionName="Projects"><Projects /></LazySection>
                   </Suspense>
                   <Suspense fallback={null}>
-                    <LazySection><Contact /></LazySection>
+                    <LazySection sectionName="Contact"><Contact /></LazySection>
                   </Suspense>
                 </>
               } />

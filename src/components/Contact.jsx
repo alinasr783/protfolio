@@ -5,6 +5,8 @@ import { BsGithub } from 'react-icons/bs';
 import { IoLogoLinkedin, IoLogoTwitter, IoLogoWhatsapp } from 'react-icons/io5';
 import { IoMdMail } from "react-icons/io";
 
+import { trackAction } from '../utils/tracker';
+
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
@@ -31,6 +33,8 @@ export default function Contact() {
         timestamp: new Date().toISOString()
       }
     };
+
+    trackAction('contact_form_submit', { name: data.name, email: data.email });
 
     try {
       // Dynamic import to reduce initial bundle size and defer Supabase loading

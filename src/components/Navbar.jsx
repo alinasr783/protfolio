@@ -3,6 +3,7 @@ import { m, AnimatePresence } from "framer-motion";
 import { TbDownload } from "react-icons/tb";
 import { HiOutlineMenu, HiX } from "react-icons/hi";
 import resumeFile from "../assets/myresume.pdf";
+import { trackAction } from '../utils/tracker';
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -22,6 +23,7 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (id) => {
+    trackAction('nav_click', { target: id });
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
