@@ -20,20 +20,46 @@ export const trackVisit = async () => {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const referrer = document.referrer;
     const currentPage = window.location.pathname + window.location.hash;
+    const fullUrl = window.location.href;
     const sessionId = getSessionId();
 
-    // 2. Get IP and Geo info using a more reliable API (ipapi.co)
+    // 2. Performance & Hardware Info
+    const ramSize = navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Unknown';
+    const cpuCores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} Cores` : 'Unknown';
+
+    // 3. Battery Info
+    let batteryInfo = { level: 'Unknown', charging: false };
+    try {
+      if ('getBattery' in navigator) {
+        const battery = await navigator.getBattery();
+        batteryInfo = {
+          level: `${Math.round(battery.level * 100)}%`,
+          charging: battery.charging
+        };
+      }
+    } catch (e) {
+      console.warn('Battery API blocked');
+    }
+
+    // 4. Connection Info
+    let connectionInfo = { type: 'Unknown', speed: 'Unknown' };
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (connection) {
+      connectionInfo = {
+        type: connection.effectiveType || 'Unknown',
+        speed: connection.downlink ? `${connection.downlink} Mbps` : 'Unknown'
+      };
+    }
+
+    // 5. Get IP and Geo info using a more reliable API (ipapi.co)
     let geoInfo = {};
     try {
-      // Use ipapi.co with a fallback to ip-api.com
       const response = await fetch('https://ipapi.co/json/');
       if (response.ok) {
         geoInfo = await response.json();
       } else {
-        // Fallback API if the first one fails
         const fallback = await fetch('https://ip-api.com/json/');
         geoInfo = await fallback.json();
-        // Standardize fields from fallback
         geoInfo.ip = geoInfo.query;
         geoInfo.country_name = geoInfo.country;
       }
@@ -41,7 +67,26 @@ export const trackVisit = async () => {
       console.warn('Geo tracking blocked or failed', e);
     }
 
-    // 3. Detect Device/OS/Browser (Basic)
+    // 6. Improved OS & Browser Detection
+    const getOS = () => {
+      const ua = navigator.userAgent;
+      if (ua.indexOf("Win") !== -1) return "Windows";
+      if (ua.indexOf("Mac") !== -1) return "MacOS";
+      if (ua.indexOf("Linux") !== -1) return "Linux";
+      if (ua.indexOf("Android") !== -1) return "Android";
+      if (ua.indexOf("like Mac") !== -1) return "iOS";
+      return "Unknown OS";
+    };
+
+    const getBrowser = () => {
+      const ua = navigator.userAgent;
+      if (ua.indexOf("Chrome") !== -1) return "Chrome";
+      if (ua.indexOf("Firefox") !== -1) return "Firefox";
+      if (ua.indexOf("Safari") !== -1) return "Safari";
+      if (ua.indexOf("Edge") !== -1) return "Edge";
+      return "Unknown Browser";
+    };
+
     const getDeviceType = () => {
       const ua = navigator.userAgent;
       if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return "tablet";
@@ -54,8 +99,8 @@ export const trackVisit = async () => {
       ip_address: geoInfo.ip || 'Unknown',
       user_agent: userAgent,
       device_type: getDeviceType(),
-      browser: geoInfo.version || 'Unknown', // Basic fallback
-      os: geoInfo.org || 'Unknown', // Basic fallback
+      browser: getBrowser(),
+      os: getOS(),
       language,
       screen_resolution: screenResolution,
       timezone,
@@ -66,10 +111,17 @@ export const trackVisit = async () => {
       longitude: geoInfo.longitude?.toString(),
       referrer,
       current_page: currentPage,
+      full_url: fullUrl,
+      ram_size: ramSize,
+      cpu_cores: cpuCores,
+      battery_level: batteryInfo.level,
+      battery_charging: batteryInfo.charging,
+      connection_type: connectionInfo.type,
+      connection_speed: connectionInfo.speed,
       actions: [{ type: 'page_view', timestamp: new Date().toISOString(), page: currentPage }]
     };
 
-    // 4. Save to Supabase
+    // 7. Save to Supabase
     const { error } = await supabase.from('visits').insert([data]);
     if (error) throw error;
 

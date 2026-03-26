@@ -232,14 +232,18 @@ export default function Dashboard() {
                           <div className="space-y-3">
                             <p className="flex justify-between"><span className="text-gray-500">Location:</span> <span className="font-medium text-right">{selectedVisitor.city}, {selectedVisitor.region}, {selectedVisitor.country}</span></p>
                             <p className="flex justify-between"><span className="text-gray-500">Coordinates:</span> <span className="font-medium">{selectedVisitor.latitude}, {selectedVisitor.longitude}</span></p>
-                            <p className="flex justify-between"><span className="text-gray-500">ISP/OS:</span> <span className="font-medium">{selectedVisitor.os}</span></p>
+                            <p className="flex justify-between"><span className="text-gray-500">OS:</span> <span className="font-medium">{selectedVisitor.os}</span></p>
                             <p className="flex justify-between"><span className="text-gray-500">Browser:</span> <span className="font-medium">{selectedVisitor.browser}</span></p>
+                            <p className="flex justify-between"><span className="text-gray-500">RAM:</span> <span className="font-medium text-blue-600">{selectedVisitor.ram_size || 'N/A'}</span></p>
+                            <p className="flex justify-between"><span className="text-gray-500">CPU:</span> <span className="font-medium text-blue-600">{selectedVisitor.cpu_cores || 'N/A'}</span></p>
                           </div>
                           <div className="space-y-3">
                             <p className="flex justify-between"><span className="text-gray-500">Device:</span> <span className="font-medium capitalize">{selectedVisitor.device_type}</span></p>
+                            <p className="flex justify-between"><span className="text-gray-500">Connection:</span> <span className="font-medium text-green-600">{selectedVisitor.connection_type} ({selectedVisitor.connection_speed})</span></p>
+                            <p className="flex justify-between"><span className="text-gray-500">Battery:</span> <span className={`font-medium ${selectedVisitor.battery_charging ? 'text-green-500' : 'text-orange-500'}`}>{selectedVisitor.battery_level} {selectedVisitor.battery_charging ? '(Charging⚡)' : '(Discharging)'}</span></p>
                             <p className="flex justify-between"><span className="text-gray-500">Resolution:</span> <span className="font-medium">{selectedVisitor.screen_resolution}</span></p>
-                            <p className="flex justify-between"><span className="text-gray-500">Language:</span> <span className="font-medium">{selectedVisitor.language}</span></p>
                             <p className="flex justify-between"><span className="text-gray-500">Referrer:</span> <span className="font-medium text-xs truncate max-w-[150px]" title={selectedVisitor.referrer}>{selectedVisitor.referrer || 'Direct'}</span></p>
+                            <p className="flex justify-between"><span className="text-gray-500">Full URL:</span> <span className="font-medium text-xs truncate max-w-[150px]" title={selectedVisitor.full_url}>{selectedVisitor.full_url}</span></p>
                           </div>
                         </div>
                         <div className="mt-6 p-3 bg-gray-50 rounded text-[10px] font-mono break-all text-gray-400">
